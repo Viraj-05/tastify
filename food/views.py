@@ -7,6 +7,11 @@ def home(request):
         {"name": "Lets Shawarma", "cuisine": "Afghani,Indian,Middle Eastern"},
         {"name": "Rolex Bakery", "cuisine": "Bakery Products"},
         {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
+        {"name": "", "cuisine": "Cafe, Beverages"},
+        {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
+        {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
+        {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
+        {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
 
     ]
     query = request.GET.get('search')
