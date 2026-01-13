@@ -1,0 +1,8 @@
+<h2>Your Cart</h2>
+{% for item in items %}
+    <p>{{ item.restaurant.name }} — Qty: {{ item.quantity }}</p>
+{% empty %}
+    <p>Cart is empty</p>
+{% endfor %}
+
+<a href="/">Back to Home</a>

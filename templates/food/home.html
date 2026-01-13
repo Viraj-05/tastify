@@ -55,6 +55,8 @@
             <p>⭐ {{ restaurant.rating }} | {{ restaurant.price_range }}</p>
 
             <a class="order-btn" href="{% url 'order' restaurant.id %}">Order</a>
+            <a class="order-btn" href="{% url 'add_to_cart' restaurant.id %}">Add to Cart</a>
+
             <a href="{% url 'restaurant_detail' restaurant.id %}">
     <h3>{{ restaurant.name }}</h3>
 </a>
