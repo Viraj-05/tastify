@@ -1,0 +1,69 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tastify</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'food/style.css' %}">
+
+</head>
+<body>
+<header>
+    <h1>Tastify 🍽️</h1>
+    <p>Discover & Order from top restaurants</p>
+    <a href="{% url 'order_history' %}" style="color:white;">View Orders</a>
+
+</header>
+
+<div class="container">
+    <form method="get">
+        <input type="text" name="search" value="{{ query }}" placeholder="Search restaurants">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="grid">
+        {% for restaurant in restaurants %}
+        <div class="card">
+            {% if restaurant.image %}
+                <img src="{{ restaurant.image.url }}">
+            {% else %}
+                <img src="/media/default/default_restaurant.jpg">
+            {% endif %}
+
+            <h3>{{ restaurant.name }}</h3>
+            <p>{{ restaurant.cuisine }}</p>
+            <p>⭐ {{ restaurant.rating }} | {{ restaurant.price_range }}</p>
+
+            <a class="order-btn" href="{% url 'order' restaurant.id %}">Order</a>
+            <a href="{% url 'restaurant_detail' restaurant.id %}">
+    <h3>{{ restaurant.name }}</h3>
+</a>
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+</body>
+</html>

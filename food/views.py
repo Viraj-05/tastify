@@ -1,30 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
+from .models import Restaurant, Order
+
 
 def home(request):
-    restaurants = [
-        {"name": "China Point", "cuisine": "Indian, Chinese, Korean"},
-        {"name": "Mba Bhurji", "cuisine": "Fast Food ,Egg Dishes"},
-        {"name": "Lets Shawarma", "cuisine": "Afghani,Indian,Middle Eastern"},
-        {"name": "Rolex Bakery", "cuisine": "Bakery Products"},
-        {"name": "Cafe Durga", "cuisine": "Cafe, Beverages"},
-        {"name": "Hotel Gajanan", "cusine": "Indian"},
-        {"name": "Hotel Someshwar", "cuisine": "Daily mess"},
-        {"name": "Cafe Mountain Dragon", "cuisine": "Ice cream,Cold and Hot Beverages"},
-       
-       
-       
-       
-    ]
     query = request.GET.get('search')
 
     if query:
-        restaurants = [
-            r for r in restaurants
-            if query.lower() in r["name"].lower()
-        ]
+        restaurant_list = Restaurant.objects.filter(name__icontains=query)
+    else:
+        restaurant_list = Restaurant.objects.all()
 
-    return render(request, 'index.html', {
+    paginator = Paginator(restaurant_list, 8)
+    page_number = request.GET.get('page')
+    restaurants = paginator.get_page(page_number)
+
+    return render(request, 'food/home.html', {
         'restaurants': restaurants,
         'query': query
     })
 
+
+def order_food(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    Order.objects.create(restaurant=restaurant)
+
+    return render(request, 'food/order_success.html', {
+        'restaurant': restaurant
+    })
+def restaurant_detail(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    return render(request, 'food/restaurant_detail.html', {
+        'restaurant': restaurant
+    })
+def order_history(request):
+    orders = Order.objects.all().order_by('-created_at')
+    return render(request, 'food/order_history.html', {
+        'orders': orders
+    })

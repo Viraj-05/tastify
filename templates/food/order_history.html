@@ -1,0 +1,9 @@
+<h2>All Orders</h2>
+
+<ul>
+    {% for order in orders %}
+        <li>{{ order.restaurant.name }} — {{ order.created_at }}</li>
+    {% endfor %}
+</ul>
+
+<a href="/">Back</a>

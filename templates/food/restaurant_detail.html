@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ restaurant.name }}</title>
+</head>
+<body>
+    <h1>{{ restaurant.name }}</h1>
+    <p>{{ restaurant.cuisine }}</p>
+    <p>⭐ {{ restaurant.rating }}</p>
+    <p>Price: {{ restaurant.price_range }}</p>
+
+    <a href="{% url 'order' restaurant.id %}">Order Now</a>
+    <br><br>
+    <a href="/">Back</a>
+</body>
+</html>
+
