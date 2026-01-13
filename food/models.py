@@ -1,3 +1,5 @@
 from django.db import models
+class Restaurant(models.Model):
+    name = models.CharField(max_length=100)
+    cuisine = models.CharField(max_length=100)
 
-# Create your models here.

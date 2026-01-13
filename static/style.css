@@ -19,8 +19,8 @@ header input {
 }
 
 .restaurants {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 20px;
 }
@@ -31,4 +31,15 @@ header input {
     padding: 15px;
     border-radius: 10px;
     text-align: center;
+}
+@media (max-width: 1000px) {
+    .restaurants {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .restaurants {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
