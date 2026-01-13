@@ -1,0 +1,99 @@
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+}
+
+.menu-search {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.menu-search input[type="text"] {
+    padding: 10px 15px;
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+.menu-search button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ff6b6b;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.menu-search button:hover {
+    background-color: #ff4757;
+}
+
+/* Grid layout for menu items */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Menu card styling */
+.menu-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+}
+
+.menu-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.menu-card h3 {
+    margin: 15px 0 5px 0;
+    font-size: 1.2em;
+}
+
+.menu-card p {
+    color: #555;
+    font-size: 0.9em;
+    margin: 5px 0 10px 0;
+}
+
+.menu-card .price {
+    font-weight: bold;
+    color: #ff6b6b;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.menu-card button {
+    padding: 8px 15px;
+    background-color: #1e90ff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-card button:hover {
+    background-color: #1c7ed6;
+}

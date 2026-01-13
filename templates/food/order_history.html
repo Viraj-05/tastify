@@ -7,3 +7,19 @@
 </ul>
 
 <a href="/">Back</a>
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Your Orders</h2>
+
+{% if orders %}
+<ul>
+    {% for order in orders %}
+        <li>{{ order.restaurant.name }} — {{ order.created_at }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No orders yet.</p>
+{% endif %}
+{% endblock %}
+

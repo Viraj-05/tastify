@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ restaurant.name }} Menu</h1>
+
+<div class="restaurant-grid">
+    {% for item in menu_items %}
+        <div class="restaurant-card">
+            <h3>{{ item.name }}</h3>
+            <p>₹ {{ item.price }}</p>
+
+            <a href="{% url 'add_to_cart' item.id %}">Add to Cart</a>
+        </div>
+    {% empty %}
+        <p>No items available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

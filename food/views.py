@@ -3,7 +3,9 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from .models import Restaurant, Order, CartItem
+from .models import Restaurant, Order, CartItem ,MenuItem
+from django.shortcuts import redirect
+
 
 
 def home(request):
@@ -49,20 +51,12 @@ def logout_view(request):
 @login_required(login_url='login')
 def order_food(request, restaurant_id):
     restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-    Order.objects.create(restaurant=restaurant)
+    Order.objects.create(user=request.user,restaurant=restaurant)
     return render(request, 'food/order_success.html', {'restaurant': restaurant})
 
 @login_required(login_url='login')
-def add_to_cart(request, restaurant_id):
-    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
-    cart_item, created = CartItem.objects.get_or_create(
-        user=request.user,
-        restaurant=restaurant
-    )
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
-    return redirect('cart')
+def add_to_cart(request, item_id):
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @login_required(login_url='login')
 def view_cart(request):
@@ -71,5 +65,36 @@ def view_cart(request):
 
 @login_required(login_url='login')
 def order_history(request):
-    orders = Order.objects.all().order_by('-created_at')
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'food/order_history.html', {'orders': orders})
+
+@login_required(login_url='login')
+def restaurant_menu(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    menu_items = restaurant.menu_items.all()
+
+    return render(request, 'food/menu.html', {
+        'restaurant': restaurant,
+        'menu_items': menu_items
+    })
+
+
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import redirect
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def profile(request):
+    return render(request, 'food/profile.html')
+
+
